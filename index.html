@@ -25,29 +25,37 @@
       box-shadow: 0 2px 14px rgba(57,185,173,0.09);
       display: flex;
       align-items: center;
-      padding: 0 5vw;
-      height: 72px;
+      padding: 0 3vw;
+      height: 70px;
       position: sticky;
       top: 0;
       z-index: 99;
     }
-    .navbar-logo {
+    .navbar-logo-group {
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 8px;
+      min-width: 0;
     }
-    .navbar-logo img {
-      height: 48px;
-      width: 48px;
+    .logo-img {
+      height: 40px;
+      width: 40px;
       border-radius: 50%;
       background: #fff;
-      box-shadow: 0 2px 8px rgba(57,185,173,0.10);
+      object-fit: contain;
     }
     .navbar-title {
-      font-size: 1.35rem;
+      font-size: 1.2rem;
       font-weight: 600;
-      color: var(--main-color);
-      letter-spacing: 1px;
+      color: #39b9ad;
+      margin-left: 12px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 200px;
+    }
+    @media (max-width:900px) {
+      .navbar-title {max-width: 110px; font-size: 1rem;}
     }
     .navbar-links {
       margin-left: auto;
@@ -59,12 +67,13 @@
       color: #266f6c;
       font-size: 1.04rem;
       font-weight: 500;
-      padding: 4px 10px;
-      border-radius: 5px;
+      padding: 6px 15px;
+      border-radius: 7px;
       transition: background .2s, color .2s;
+      white-space: nowrap;
     }
     .navbar-links a:hover, .navbar-links .active {
-      background: var(--main-color);
+      background: #39b9ad;
       color: #fff;
     }
 
@@ -118,75 +127,76 @@
 
     /* --- What We Offer --- */
     .offer-section {
-      max-width: 920px;
+      max-width: 1050px;
       margin: 54px auto 0 auto;
       padding-bottom: 30px;
     }
     .offer-title {
-      color: var(--main-color);
-      font-size: 1.45rem;
-      font-weight: bold;
+      color: #39b9ad;
+      font-size: 2rem;
+      font-weight: 700;
       text-align: center;
-      margin-bottom: 32px;
+      margin-bottom: 38px;
       letter-spacing: 2px;
     }
     .offer-cards {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 36px;
+      display: grid;
+      grid-template-columns: repeat(2,1fr);
+      gap: 32px;
       justify-content: center;
     }
     .offer-card {
       background: #fff;
       border-radius: 18px;
       box-shadow: 0 4px 24px rgba(57,185,173,0.10);
-      padding: 28px 20px 18px 20px;
-      max-width: 260px;
-      min-width: 220px;
-      flex: 1 1 200px;
+      padding: 32px 20px 26px 20px;
+      min-width: 240px;
       text-align: center;
-      transition: transform .2s, box-shadow .2s;
-      position: relative;
-      min-height: 330px;
       display: flex;
       flex-direction: column;
       align-items: center;
     }
-    .offer-card:hover {
-      transform: translateY(-8px) scale(1.025);
-      box-shadow: 0 8px 36px rgba(57,185,173,0.18);
-    }
     .offer-img {
-      width: 120px;
-      height: 100px;
+      width: 92px;
+      height: 92px;
       object-fit: contain;
       margin-bottom: 16px;
       margin-top: 6px;
-      transition: transform .2s;
-    }
-    .offer-card:hover .offer-img {
-      transform: scale(1.08);
+      border-radius: 12px;
+      background: #f6fdfd;
+      border: 1px solid #eef8f7;
     }
     .offer-card h3 {
-      font-size: 1.2rem;
-      margin-bottom: 12px;
-      color: var(--accent-color);
+      font-size: 1.28rem;
+      margin-bottom: 14px;
+      color: #ff8763;
       letter-spacing: 1px;
       font-weight: bold;
     }
     .offer-card p {
-      font-size: 1.01rem;
+      font-size: 1.02rem;
       color: #276e6a;
       line-height: 1.7;
-      margin-top: auto;
+      margin: 0 0 22px 0;
     }
-    .offer-card a {
-      color: inherit;
+    .learn-btn {
+      display: inline-block;
+      background: #39b9ad;
+      color: #fff;
+      font-weight: 500;
+      font-size: 1.04rem;
+      padding: 6px 22px;
+      border-radius: 7px;
       text-decoration: none;
+      margin-top: auto;
+      transition: background 0.2s, color 0.2s;
+    }
+    .learn-btn:hover {
+      background: #ff8763;
+      color: #fff;
     }
     @media (max-width: 900px) {
-      .offer-cards { flex-direction: column; gap: 24px;}
-      .offer-card { max-width: 98vw; min-width: 0; }
+      .offer-cards { grid-template-columns: 1fr; gap: 22px;}
     }
 
     /* --- Footer --- */
@@ -248,9 +258,10 @@
 <body>
   <!-- ===== Header/Navbar ===== -->
   <header class="navbar">
-    <div class="navbar-logo">
-      <img src="./assets/img/logo.png" alt="Hospital Logo">
-      <img src="./assets/img/logo2.png" alt="Department Logo">
+    <div class="navbar-logo-group">
+      <img src="logo1.png" alt="Hospital Logo" class="logo-img">
+      <img src="logo2.png" alt="Partner Logo" class="logo-img">
+      <span class="navbar-title">PAS database</span>
     </div>
     <nav class="navbar-links">
       <a href="index.html" class="active">Home</a>
@@ -286,7 +297,7 @@
           丰富的多中心腹源性疾病数据资源，支持队列分析和二次利用。<br>
           A comprehensive repository of multicenter data for pediatric abdominal diseases.
         </p>
-        <a href="resource.html">Learn more &rarr;</a>
+        <a href="resource.html" class="learn-btn">Learn more &rarr;</a>
       </div>
       <div class="offer-card">
         <img src="./assets/img/offer2.png" alt="Resource" class="offer-img">
@@ -295,7 +306,7 @@
           可视化呈现患者病例分布、影像等多维统计结果，助力数据解读与科学研究。<br>
           Visualization of cohort characteristics and imaging, facilitating clinical and translational research.
         </p>
-        <a href="data-summary.html">Learn more &rarr;</a>
+        <a href="data-summary.html" class="learn-btn">Learn more &rarr;</a>
       </div>
       <div class="offer-card">
         <img src="./assets/img/offer3.png" alt="Resource" class="offer-img">
@@ -304,7 +315,7 @@
           数据库建设和运营由浙江省尖兵领雁科研基金资助。<br>
           Supported by the key R&D funding of Zhejiang Province.
         </p>
-        <a href="funding.html">Learn more &rarr;</a>
+        <a href="funding.html" class="learn-btn">Learn more &rarr;</a>
       </div>
       <div class="offer-card">
         <img src="./assets/img/offer4.png" alt="Resource" class="offer-img">
@@ -313,7 +324,7 @@
           配套的儿童腹源性脓毒症诊断工具，辅助临床诊疗<br>
           A toolkit for pediatric endogenous sepsis, assisting clinical diagnosis and treatment.
         </p>
-        <a href="http://www.zjuchsep.com/absed/" target="_blank">Go to Tools &rarr;</a>
+        <a href="http://www.zjuchsep.com/absed/" class="learn-btn">Go to Tools &rarr;</a>
       </div>
     </div>
   </section>
@@ -321,14 +332,14 @@
   <!-- ===== Footer ===== -->
   <footer>
     <div class="footer-icons">
-      <a href="suqi_cao@zju.edu.com" title="Contact Email"><i class="ri-mail-line"></i></a>
+      <a href="mailto:suqi_cao@zju.edu.com" title="Contact Email"><i class="ri-mail-line"></i></a>
       <a href="https://github.com/PAS-dbase" title="GitHub"><i class="ri-github-fill"></i></a>
     </div>
     <div class="footer-text">
       PAS database - The Children's Hospital, Zhejiang University School of Medicine &nbsp; &bull; &nbsp; 2024
     </div>
     <div class="footer-theme">
-      Theme by <a href="https://github.com/daattali/beautiful-jekyll" target="_blank">Dean Attali</a>
+      Theme by <a href="https://github.com/daattali/beautiful-jekyll" target="_blank">beautiful-jekyll</a>
     </div>
   </footer>
 </body>
