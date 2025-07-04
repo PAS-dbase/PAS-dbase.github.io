@@ -15,8 +15,11 @@ title: PAS database
 # Your name to show in the footer
 author: The Children’s Hospital, Zhejiang University School of Medicine 
 description: pediatric abdominal sepsis database    
-#avatar: /assets/img/your_logo.png # Logo路径（先上传图片）
-theme_color: "#39b9ad"            # 主色调，青绿色
+# 主题配色
+theme_color: "#39b9ad"
+accent_color: "#ff8763"
+
+
 email: suqi_cao@zju.edu.cn             # 邮箱
 ###############################################
 # --- List of links in the navigation bar --- #
@@ -35,7 +38,8 @@ navbar-links:
 
 # Image to show in the navigation bar - works best with a square image
 # Remove this parameter if you don't want an image in the navbar
-avatar: "/assets/img/avatar-icon.png"
+# LOGO（建议放 assets/img/logo.png）
+avatar: /assets/img/logo.png
 
 # By default, the image is cut into a circle. You can disable this behaviour by setting 'round-avatar: false'
 round-avatar: true
@@ -53,14 +57,10 @@ round-avatar: true
 # You can change the order that they show up on the page by changing the order here.
 # Uncomment the links you want to show and add your information to each one.
 social-network-links:
-  email: "someone@example.com"
+  email: "suqi_cao@zju.edu.cn"
   rss: true  # remove this line if you don't want to show an RSS link at the bottom
-  facebook: deanattali
-  github: daattali
-  twitter: daattali
-  patreon: DeanAttali
-  youtube: "@daattali"
-  whatsapp: 15551212
+  github: PAS-dbase
+  Hospital: "https://www.zjuch.cn/"
 #  medium: yourname
 #  reddit: yourname or r/yoursubreddit
 #  linkedin: daattali
@@ -97,9 +97,9 @@ rss-description: This website is a virtual proof that I'm awesome
 
 # Select which social network share links to show in posts
 share-links-active:
-  twitter: true
-  facebook: true
-  linkedin: true
+  twitter: false
+  facebook: false
+  linkedin: false
   vk: false
   reddit: false
 
