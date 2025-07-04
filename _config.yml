@@ -15,7 +15,7 @@ title: PAS database
 # Your name to show in the footer
 author: The Children’s Hospital, Zhejiang University School of Medicine 
 description: pediatric abdominal sepsis database    
-# avatar: /assets/img/your_logo.png # Logo路径（先上传图片）
+#avatar: /assets/img/your_logo.png # Logo路径（先上传图片）
 theme_color: "#39b9ad"            # 主色调，青绿色
 email: suqi_cao@zju.edu.cn             # 邮箱
 ###############################################
