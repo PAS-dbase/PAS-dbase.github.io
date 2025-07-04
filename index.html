@@ -19,6 +19,7 @@
       color: #266f6c;
     }
     /* --- Header --- */
+    /* 核心导航栏样式 */
     .navbar {
       width: 100vw;
       background: #fff;
@@ -26,42 +27,53 @@
       display: flex;
       align-items: center;
       padding: 0 3vw;
-      height: 70px;
+      height: 68px;
       position: sticky;
       top: 0;
       z-index: 99;
+      min-width: 0;
+      overflow-x: auto;
     }
-    .navbar-logo-group {
+    
+    .navbar-left {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
       min-width: 0;
+      flex-shrink: 1;
     }
+    
     .logo-img {
-      height: 40px;
-      width: 40px;
+      height: 38px;
+      width: 38px;
       border-radius: 50%;
       background: #fff;
       object-fit: contain;
+      margin-right: 2px;
     }
+    
     .navbar-title {
-      font-size: 1.2rem;
+      font-size: 1.09rem;
       font-weight: 600;
       color: #39b9ad;
-      margin-left: 12px;
+      margin-left: 10px;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      max-width: 200px;
+      max-width: 340px;
+      min-width: 0;
+      flex-shrink: 1;
     }
-    @media (max-width:900px) {
-      .navbar-title {max-width: 110px; font-size: 1rem;}
-    }
+    
     .navbar-links {
       margin-left: auto;
       display: flex;
-      gap: 36px;
+      gap: 26px;
+      min-width: 0;
+      flex-shrink: 0;
+      transition: right 0.25s;
     }
+    
     .navbar-links a {
       text-decoration: none;
       color: #266f6c;
@@ -76,6 +88,70 @@
       background: #39b9ad;
       color: #fff;
     }
+    
+    /* 汉堡按钮（仅小屏显示） */
+    .navbar-burger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      margin-left: 16px;
+      z-index: 1002;
+    }
+    .navbar-burger span {
+      width: 28px;
+      height: 4px;
+      background: #39b9ad;
+      margin: 4px 0;
+      border-radius: 3px;
+      display: block;
+      transition: 0.2s;
+    }
+    
+    /* 遮罩（仅小屏显示） */
+    .navbar-mask {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: rgba(80,80,80,0.18);
+      z-index: 1001;
+    }
+    
+    /* 移动端自适应 */
+    @media (max-width: 800px) {
+      .navbar-links {
+        position: fixed;
+        flex-direction: column;
+        gap: 10px;
+        top: 0;
+        right: -220px;  /* 隐藏菜单 */
+        width: 200px;
+        height: 100vh;
+        background: #fff;
+        box-shadow: -2px 0 12px rgba(57,185,173,0.08);
+        align-items: flex-start;
+        padding: 76px 18px 22px 18px;
+        transition: right 0.23s;
+        z-index: 1003;
+      }
+      .navbar-links.show {
+        right: 0;
+      }
+      .navbar-burger {
+        display: flex;
+      }
+      .navbar-title {
+        max-width: 60vw;
+        font-size: 0.94rem;
+      }
+      .navbar-mask {
+        display: none;
+      }
+      .navbar-mask.show {
+        display: block;
+      }
+    }
+
 
     /* --- Hero Section --- */
     .hero {
@@ -258,17 +334,23 @@
 <body>
   <!-- ===== Header/Navbar ===== -->
   <header class="navbar">
-    <div class="navbar-logo-group">
-      <img src="./assets/img/logo1.png" alt="Hospital Logo" class="logo-img">
+    <div class="navbar-left">
+      <img src="./assets/img/logo.png" alt="Hospital Logo" class="logo-img">
       <img src="./assets/img/logo2.png" alt="Partner Logo" class="logo-img">
     </div>
-    <nav class="navbar-links">
+    <nav class="navbar-links" id="navbarLinks">
       <a href="index.html" class="active">Home</a>
       <a href="resource.html">Resource</a>
       <a href="data-summary.html">Data Summary</a>
       <a href="funding.html">Funding</a>
-      <a href="http://www.zjuchsep.com/absed/" target="_blank">Tools</a>
+      <a href="http://www.zjuchsep.com/absed/">Diagnostic Tool</a>
     </nav>
+    <!-- 汉堡按钮 -->
+    <div class="navbar-burger" id="navbarBurger">
+      <span></span><span></span><span></span>
+    </div>
+    <!-- 遮罩 -->
+    <div class="navbar-mask" id="navbarMask"></div>
   </header>
 
   <!-- ===== Hero Section ===== -->
@@ -341,5 +423,25 @@
       Theme by <a href="https://github.com/daattali/beautiful-jekyll" target="_blank">beautiful-jekyll</a>
     </div>
   </footer>
+  <script>
+    const burger = document.getElementById('navbarBurger');
+    const links = document.getElementById('navbarLinks');
+    const mask = document.getElementById('navbarMask');
+    burger.onclick = function() {
+      links.classList.toggle('show');
+      mask.classList.toggle('show');
+    };
+    mask.onclick = function() {
+      links.classList.remove('show');
+      mask.classList.remove('show');
+    };
+    // 点击菜单自动关闭（移动端体验好）
+    document.querySelectorAll('.navbar-links a').forEach(function(link){
+      link.onclick = function(){
+        links.classList.remove('show');
+        mask.classList.remove('show');
+      }
+    });
+  </script>
 </body>
 </html>
