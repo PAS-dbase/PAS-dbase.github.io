@@ -1,5 +1,157 @@
----
-layout: home
-title: My website
-subtitle: This is where I will tell my friends way too much about me
----
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PAS database | The Children's Hospital, Zhejiang University School of Medicine</title>
+  <link rel="icon" href="logo.png" type="image/png">
+  <style>
+    :root {
+      --main-color: #39b9ad;
+      --accent-color: #ff8763;
+      --bg-gradient: linear-gradient(120deg, #e6fffb 0%, #fff7f4 100%);
+    }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
+      background: #fafdff;
+      color: #266f6c;
+    }
+    /* --- Header --- */
+    .navbar {
+      width: 100vw;
+      background: #fff;
+      box-shadow: 0 2px 14px rgba(57,185,173,0.09);
+      display: flex;
+      align-items: center;
+      padding: 0 5vw;
+      height: 72px;
+      position: sticky;
+      top: 0;
+      z-index: 99;
+    }
+    .navbar-logo {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .navbar-logo img {
+      height: 48px;
+      width: 48px;
+      border-radius: 50%;
+      background: #fff;
+      box-shadow: 0 2px 8px rgba(57,185,173,0.10);
+    }
+    .navbar-title {
+      font-size: 1.35rem;
+      font-weight: 600;
+      color: var(--main-color);
+      letter-spacing: 1px;
+    }
+    .navbar-links {
+      margin-left: auto;
+      display: flex;
+      gap: 36px;
+    }
+    .navbar-links a {
+      text-decoration: none;
+      color: #266f6c;
+      font-size: 1.04rem;
+      font-weight: 500;
+      padding: 4px 10px;
+      border-radius: 5px;
+      transition: background .2s, color .2s;
+    }
+    .navbar-links a:hover, .navbar-links .active {
+      background: var(--main-color);
+      color: #fff;
+    }
+
+    /* --- Hero Section --- */
+    .hero {
+      width: 100vw;
+      min-height: 330px;
+      background: var(--bg-gradient), url('bg.jpg') center/cover no-repeat;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      position: relative;
+      padding: 80px 0 64px 0;
+    }
+    .hero-title {
+      font-size: 3.5rem;
+      font-weight: 800;
+      color: var(--main-color);
+      text-shadow: 0 4px 32px rgba(255,135,99,0.08);
+      margin-bottom: 12px;
+      letter-spacing: 4px;
+    }
+    .hero-subtitle {
+      font-size: 1.25rem;
+      color: #266f6c;
+      margin-bottom: 8px;
+    }
+
+    /* --- Intro Section --- */
+    .intro {
+      max-width: 760px;
+      margin: 54px auto 0 auto;
+      background: #fff;
+      box-shadow: 0 8px 36px rgba(57,185,173,0.08);
+      border-radius: 22px;
+      padding: 34px 32px 38px 32px;
+      font-size: 1.18rem;
+      line-height: 2.0;
+      color: #276e6a;
+      position: relative;
+    }
+    .intro-title {
+      color: var(--main-color);
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 18px;
+      letter-spacing: 2px;
+    }
+
+    @media (max-width: 700px) {
+      .navbar-title { font-size: 1rem; }
+      .navbar-links { gap: 15px; }
+      .hero-title { font-size: 2.1rem;}
+      .hero { padding: 60px 0 36px 0;}
+      .intro { font-size: 1rem; padding: 18px 8px; }
+    }
+  </style>
+</head>
+<body>
+  <!-- ===== Header/Navbar ===== -->
+  <header class="navbar">
+    <div class="navbar-logo">
+      <img src="logo.png" alt="Hospital Logo">
+      <span class="navbar-title">The Children's Hospital, Zhejiang University School of Medicine</span>
+    </div>
+    <nav class="navbar-links">
+      <a href="index.html" class="active">Home</a>
+      <a href="resource.html">Resource</a>
+      <a href="data-summary.html">Data Summary</a>
+      <a href="funding.html">Funding</a>
+      <a href="http://www.zjuchsep.com/absed/" target="_blank">Diagnostic Tool</a>
+    </nav>
+  </header>
+
+  <!-- ===== Hero Section ===== -->
+  <section class="hero">
+    <div class="hero-title">PAS database</div>
+    <div class="hero-subtitle">Pediatric Abdominal Sepsis Database</div>
+  </section>
+
+  <!-- ===== Intro Section ===== -->
+  <section class="intro">
+    <div class="intro-title">数据库简介 | About the Database</div>
+    <p>
+      PAS数据库（Pediatric Abdominal Sepsis Database）由浙江大学医学院附属儿童医院高志刚团队牵头建设，致力于收集和整合腹源性疾病患儿的护理信息、实验室检验信息、医学影像等。该数据库旨在为儿童腹源性脓毒症等相关疾病的基础研究、精准诊断和转化医学提供数据支撑，促进多中心、跨学科合作。<br><br>
+      The PAS database, led by Gao's team at The Children's Hospital, Zhejiang University School of Medicine, integrates nursing signs, lab information, and imaging of pediatric patients with abdominal diseases. This resource aims to facilitate research, diagnosis, and translational medicine in pediatric abdominal sepsis and related disorders, fostering multicenter and interdisciplinary collaboration.
+    </p>
+  </section>
+</body>
+</html>
