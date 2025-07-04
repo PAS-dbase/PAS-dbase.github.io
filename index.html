@@ -72,6 +72,9 @@
       min-width: 0;
       flex-shrink: 0;
       transition: right 0.25s;
+      overflow-x: auto;         /* 新增！横向溢出时可滑动 */
+      max-width: 60vw;          /* 保证不会占满整个屏幕 */
+      scrollbar-width: thin;    /* 火狐自带细滚动条 */
     }
     
     .navbar-links a {
