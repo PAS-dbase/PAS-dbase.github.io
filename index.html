@@ -21,7 +21,7 @@
     /* --- Header --- */
     /* 核心导航栏样式 */
     .navbar {
-      width: 80vw;
+      width: 100vw;
       background: #fff;
       box-shadow: 0 2px 14px rgba(57,185,173,0.09);
       display: flex;
@@ -42,7 +42,16 @@
       min-width: 0;
       flex-shrink: 1;
     }
-    
+    .navbar-inner {
+      max-width: 1200px;     /* 和你的主体内容宽度一致 */
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      padding: 0 3vw;
+      height: 68px;
+      min-width: 0;
+      overflow-x: auto;
+    }
     .logo-img {
       height: 38px;
       width: 38px;
@@ -180,6 +189,12 @@
       position: relative;
       padding: 80px 0 48px 0;
     }
+    .hero-inner {
+      max-width: 1200px; 
+      margin: 0 auto;
+      padding: 80px 0 48px 0;
+      text-align: center;
+    }
     .hero-title {
       font-size: 4rem;
       font-weight: 900;
@@ -197,7 +212,7 @@
 
     /* --- Intro Section --- */
     .intro {
-      max-width: 760px;
+      max-width: 1000px;
       margin: 54px auto 0 auto;
       background: #fff;
       box-shadow: 0 8px 36px rgba(57,185,173,0.08);
@@ -211,7 +226,7 @@
     .intro-title {
       color: var(--main-color);
       font-size: 1.5rem;
-      font-weight: 700;
+      font-weight: 800;
       margin-bottom: 18px;
       letter-spacing: 2px;
     }
@@ -349,20 +364,22 @@
 <body>
   <!-- ===== Header/Navbar ===== -->
   <header class="navbar">
-    <div class="navbar-left">
-      <img src="./assets/img/logo.png" alt="Hospital Logo" class="logo-img">
-      <img src="./assets/img/logo2.png" alt="Partner Logo" class="logo-img">
-    </div>
-    <nav class="navbar-links" id="navbarLinks">
-      <a href="index.html" class="active">Home</a>
-      <a href="resource.html">Resource</a>
-      <a href="data-summary.html">Data Summary</a>
-      <a href="funding.html">Funding</a>
-      <a href="http://www.zjuchsep.com/absed/">Diagnostic Tool</a>
-    </nav>
-    <!-- 汉堡按钮 -->
-    <div class="navbar-burger" id="navbarBurger">
-      <span></span><span></span><span></span>
+    <div class="navbar-inner">
+      <div class="navbar-left">
+        <img src="./assets/img/logo.png" alt="Hospital Logo" class="logo-img">
+        <img src="./assets/img/logo2.png" alt="Partner Logo" class="logo-img">
+      </div>
+      <nav class="navbar-links" id="navbarLinks">
+        <a href="index.html" class="active">Home</a>
+        <a href="resource.html">Resource</a>
+        <a href="data-summary.html">Data Summary</a>
+        <a href="funding.html">Funding</a>
+        <a href="http://www.zjuchsep.com/absed/">Diagnostic Tool</a>
+      </nav>
+      <!-- 汉堡按钮 -->
+      <div class="navbar-burger" id="navbarBurger">
+        <span></span><span></span><span></span>
+      </div>
     </div>
     <!-- 遮罩 -->
     <div class="navbar-mask" id="navbarMask"></div>
@@ -370,8 +387,10 @@
 
   <!-- ===== Hero Section ===== -->
   <section class="hero">
-    <div class="hero-title">PAS database</div>
-    <div class="hero-subtitle">Pediatric Abdominal Sepsis Database</div>
+    <div class="hero-inner">
+      <div class="hero-title">PAS database</div>
+      <div class="hero-subtitle">Pediatric Abdominal Sepsis Database</div>
+    </div>
   </section>
 
   <!-- ===== Intro Section ===== -->
