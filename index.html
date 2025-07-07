@@ -19,68 +19,52 @@
       color: #266f6c;
     }
     /* --- Header --- */
-    /* 核心导航栏样式 */
+    /* 最外层100%宽度，背景全屏，内容最大定宽并水平居中 */
     .navbar {
-      width: 100vw;
+      width: 100%;
       background: #fff;
       box-shadow: 0 2px 14px rgba(57,185,173,0.09);
-      display: flex;
-      align-items: center;
-      padding: 0 3vw;
-      height: 68px;
       position: sticky;
       top: 0;
       z-index: 99;
-      min-width: 0;
-      overflow-x: auto;
     }
     
-    .navbar-left {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      min-width: 0;
-      flex-shrink: 1;
-    }
+    /* 居中且最大宽度一致（和主内容区max-width一致） */
     .navbar-inner {
-      max-width: 1200px;     /* 和你的主体内容宽度一致 */
+      max-width: 1200px;    /* 你的主内容宽度，可自行调整 */
       margin: 0 auto;
       display: flex;
       align-items: center;
-      padding: 0 3vw;
-      height: 68px;
+      justify-content: space-between;   /* 两端对齐 */
+      padding: 0 32px;
+      height: 70px;
       min-width: 0;
-      overflow-x: auto;
+      box-sizing: border-box;
     }
+    
+    /* 左侧logo组 */
+    .navbar-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    /* logo图片样式 */
     .logo-img {
       height: 38px;
       width: 38px;
       border-radius: 50%;
       background: #fff;
       object-fit: contain;
-      margin-right: 2px;
     }
     
-    .navbar-title {
-      font-size: 1.09rem;
-      font-weight: 600;
-      color: #39b9ad;
-      margin-left: 10px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      max-width: 340px;
-      min-width: 0;
-      flex-shrink: 1;
-    }
-    
+    /* 菜单栏始终右侧 */
     .navbar-links {
-      margin-left: auto;
       display: flex;
-      gap: 26px;
+      gap: 32px;
       min-width: 0;
       flex-shrink: 1;
-      flex-wrap: wrap;    /* 自动换行！ */
+      align-items: center;
     }
     
     .navbar-links a {
@@ -93,27 +77,13 @@
       transition: background .2s, color .2s;
       white-space: nowrap;
     }
+    
     .navbar-links a:hover, .navbar-links .active {
       background: #39b9ad;
       color: #fff;
     }
-    @media (max-width: 1250px) {
-      .navbar-links { gap: 18px;}
-      .navbar-links a { font-size: 0.99rem; padding: 5px 10px;}
-    }
-    @media (max-width: 1100px) {
-      .navbar-links { gap: 11px;}
-      .navbar-links a { font-size: 0.92rem; padding: 4px 6px;}
-    }
-    @media (max-width: 950px) {
-      .navbar-links { gap: 6px;}
-      .navbar-links a { font-size: 0.86rem; padding: 3px 4px;}
-    }
-    @media (max-width: 850px) {
-      .navbar-links { display: none;}   /* 这时汉堡菜单生效 */
-    }
     
-    /* 汉堡按钮（仅小屏显示） */
+    /* 汉堡菜单小屏显示 */
     .navbar-burger {
       display: none;
       flex-direction: column;
@@ -130,26 +100,20 @@
       display: block;
       transition: 0.2s;
     }
-    
-    /* 遮罩（仅小屏显示） */
     .navbar-mask {
       display: none;
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw; height: 100vh;
-      background: rgba(80,80,80,0.18);
-      z-index: 1001;
     }
     
-    /* 移动端自适应 */
-    @media (max-width: 800px) {
+    /* 移动端适配：小于900px折叠菜单，只logo显示左侧 */
+    @media (max-width: 900px) {
+      .navbar-inner { padding: 0 8px; }
       .navbar-links {
         position: fixed;
         flex-direction: column;
-        gap: 10px;
+        gap: 12px;
         top: 0;
-        right: -220px;  /* 隐藏菜单 */
-        width: 200px;
+        right: -220px;  /* 默认隐藏 */
+        width: 180px;
         height: 100vh;
         background: #fff;
         box-shadow: -2px 0 12px rgba(57,185,173,0.08);
@@ -158,22 +122,17 @@
         transition: right 0.23s;
         z-index: 1003;
       }
-      .navbar-links.show {
-        right: 0;
-      }
-      .navbar-burger {
-        display: flex;
-      }
-      .navbar-title {
-        max-width: 60vw;
-        font-size: 0.94rem;
-      }
-      .navbar-mask {
-        display: none;
-      }
-      .navbar-mask.show {
-        display: block;
-      }
+      .navbar-links.show { right: 0; }
+      .navbar-burger { display: flex;}
+      .navbar-mask { display: none;}
+      .navbar-mask.show { display: block; position: fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(80,80,80,0.15); z-index: 1001;}
+    }
+    
+    /* 防止溢出出现横向滚动条！ */
+    body, html {
+      width: 100%;
+      overflow-x: hidden !important;
+      box-sizing: border-box;
     }
 
 
@@ -380,9 +339,9 @@
       <div class="navbar-burger" id="navbarBurger">
         <span></span><span></span><span></span>
       </div>
+      <!-- 遮罩 -->
+      <div class="navbar-mask" id="navbarMask"></div>
     </div>
-    <!-- 遮罩 -->
-    <div class="navbar-mask" id="navbarMask"></div>
   </header>
 
   <!-- ===== Hero Section ===== -->
