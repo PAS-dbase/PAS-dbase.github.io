@@ -70,14 +70,14 @@
       display: flex;
       gap: 26px;
       min-width: 0;
-      flex-shrink: 0;
-      transition: right 0.25s;
+      flex-shrink: 1;
+      flex-wrap: wrap;    /* 自动换行！ */
     }
     
     .navbar-links a {
       text-decoration: none;
       color: #266f6c;
-      font-size: 1.04rem;
+      font-size: 1.08rem;
       font-weight: 500;
       padding: 6px 15px;
       border-radius: 7px;
@@ -87,6 +87,21 @@
     .navbar-links a:hover, .navbar-links .active {
       background: #39b9ad;
       color: #fff;
+    }
+    @media (max-width: 1250px) {
+      .navbar-links { gap: 18px;}
+      .navbar-links a { font-size: 0.99rem; padding: 5px 10px;}
+    }
+    @media (max-width: 1100px) {
+      .navbar-links { gap: 11px;}
+      .navbar-links a { font-size: 0.92rem; padding: 4px 6px;}
+    }
+    @media (max-width: 950px) {
+      .navbar-links { gap: 6px;}
+      .navbar-links a { font-size: 0.86rem; padding: 3px 4px;}
+    }
+    @media (max-width: 850px) {
+      .navbar-links { display: none;}   /* 这时汉堡菜单生效 */
     }
     
     /* 汉堡按钮（仅小屏显示） */
@@ -155,7 +170,7 @@
 
     /* --- Hero Section --- */
     .hero {
-      width: 80vw;
+      width: 100vw;
       min-height: 320px;
       background: var(--bg-gradient), url('./assets/img/bg.jpg') center/cover no-repeat;
       display: flex;
@@ -403,7 +418,7 @@
         <h3>Tools</h3>
         <p>
           配套的儿童腹源性脓毒症诊断工具，辅助临床诊疗<br>
-          A toolkit for pediatric endogenous sepsis, assisting clinical diagnosis and treatment.
+          A toolkit for pediatric abdominal sepsis, assisting clinical diagnosis and treatment.
         </p>
         <a href="http://www.zjuchsep.com/absed/" class="learn-btn">Go to Tools &rarr;</a>
       </div>
