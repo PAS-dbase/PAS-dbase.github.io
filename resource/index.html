@@ -11,7 +11,6 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css">
   <!-- Echarts库 -->
   <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
-  <script src="https://unpkg.com/echarts@5.4.3/map/js/china.js"></script>
   <style>
     .main-content {
       max-width: 1100px; margin: 0 auto; padding: 38px 8px 48px 8px; box-sizing: border-box;
@@ -106,65 +105,70 @@
   </script>
   <script>
     // Echarts中国地图
-    var chartDom = document.getElementById('china-map');
-    var myChart = echarts.init(chartDom);
+    fetch('https://geo.datav.aliyun.com/areas/bound/geojson?code=100000_full')
+      .then(res => res.json())
+      .then(function (chinaJson) {
+        echarts.registerMap('china', chinaJson);
+        var myChart = echarts.init(document.getElementById('china-map'));
+        var chartDom = document.getElementById('china-map');
 
-    var mapData = [
-      {name: '浙江', value: 100},
-      {name: '北京', value: 1}, {name: '天津', value: 1}, {name: '上海', value: 1},
-      {name: '重庆', value: 1}, {name: '河北', value: 1}, {name: '河南', value: 1},
-      {name: '云南', value: 1}, {name: '辽宁', value: 1}, {name: '黑龙江', value: 1},
-      {name: '湖南', value: 1}, {name: '安徽', value: 1}, {name: '山东', value: 1},
-      {name: '新疆', value: 1}, {name: '江苏', value: 1}, {name: '广西', value: 1},
-      {name: '江西', value: 1}, {name: '甘肃', value: 1}, {name: '山西', value: 1},
-      {name: '内蒙古', value: 1}, {name: '陕西', value: 1}, {name: '吉林', value: 1},
-      {name: '福建', value: 1}, {name: '贵州', value: 1}, {name: '广东', value: 1},
-      {name: '青海', value: 1}, {name: '西藏', value: 1}, {name: '四川', value: 1},
-      {name: '宁夏', value: 1}, {name: '海南', value: 1}, {name: '台湾', value: 1},
-      {name: '香港', value: 1}, {name: '澳门', value: 1}
-    ];
+        var mapData = [
+          {name: '浙江', value: 100},
+          {name: '北京', value: 1}, {name: '天津', value: 1}, {name: '上海', value: 1},
+          {name: '重庆', value: 1}, {name: '河北', value: 1}, {name: '河南', value: 1},
+          {name: '云南', value: 1}, {name: '辽宁', value: 1}, {name: '黑龙江', value: 1},
+          {name: '湖南', value: 1}, {name: '安徽', value: 1}, {name: '山东', value: 1},
+          {name: '新疆', value: 1}, {name: '江苏', value: 1}, {name: '广西', value: 1},
+          {name: '江西', value: 1}, {name: '甘肃', value: 1}, {name: '山西', value: 1},
+          {name: '内蒙古', value: 1}, {name: '陕西', value: 1}, {name: '吉林', value: 1},
+          {name: '福建', value: 1}, {name: '贵州', value: 1}, {name: '广东', value: 1},
+          {name: '青海', value: 1}, {name: '西藏', value: 1}, {name: '四川', value: 1},
+          {name: '宁夏', value: 1}, {name: '海南', value: 1}, {name: '台湾', value: 1},
+          {name: '香港', value: 1}, {name: '澳门', value: 1}
+        ];
+    
+        var option = {
+          tooltip: {
+            trigger: 'item',
+            formatter: function(params){
+              return params.name + (params.value ? ': ' + params.value : '');
+            }
+          },
+          visualMap: {
+            min: 0,
+            max: 100,
+            left: 16,
+            bottom: 28,
+            show: false,
+            inRange: {
+              color: ['#eafaf6', '#39b9ad']
+            }
+          },
+          series: [{
+            name: '数据来源',
+            type: 'map',
+            map: 'china',
+            roam: false,
+            emphasis: {
+              label: { show: true, color:'#39b9ad', fontWeight: 'bold' },
+              itemStyle: { areaColor: '#ff8763', borderColor:'#f00', borderWidth:1.5 }
+            },
+            label: {
+              show: false,
+              color: '#888',
+              fontSize: 12
+            },
+            itemStyle: {
+              borderColor: '#fff',
+              borderWidth: 1,
+              areaColor: '#eafaf6'
+            },
+            data: mapData
+          }]
+        };
 
-    var option = {
-      tooltip: {
-        trigger: 'item',
-        formatter: function(params){
-          return params.name + (params.value ? ': ' + params.value : '');
-        }
-      },
-      visualMap: {
-        min: 0,
-        max: 100,
-        left: 16,
-        bottom: 28,
-        show: false,
-        inRange: {
-          color: ['#eafaf6', '#39b9ad']
-        }
-      },
-      series: [{
-        name: '数据来源',
-        type: 'map',
-        map: 'china',
-        roam: false,
-        emphasis: {
-          label: { show: true, color:'#39b9ad', fontWeight: 'bold' },
-          itemStyle: { areaColor: '#ff8763', borderColor:'#f00', borderWidth:1.5 }
-        },
-        label: {
-          show: false,
-          color: '#888',
-          fontSize: 12
-        },
-        itemStyle: {
-          borderColor: '#fff',
-          borderWidth: 1,
-          areaColor: '#eafaf6'
-        },
-        data: mapData
-      }]
-    };
-
-    myChart.setOption(option);
+      myChart.setOption(option);
+     });
 
     setTimeout(function(){
       myChart.dispatchAction({
