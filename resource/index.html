@@ -1,1 +1,204 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <title>Resource | PAS database</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="/assets/img/logo.png" type="image/png">
+  <!-- 主站CSS -->
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <!-- 图标库 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css">
+  <!-- Echarts库 -->
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+  <!-- Echarts中国地图GeoJSON -->
+  <script src="https://fastly.jsdelivr.net/npm/echarts@5.4.3/map/js/china.js"></script>
+  <style>
+    .main-content {
+      max-width: 1100px; margin: 0 auto; padding: 38px 8px 48px 8px; box-sizing: border-box;
+    }
+    .resource-title {
+      text-align: center; margin-top: 46px; margin-bottom: 36px;
+      font-size: 2.3rem; font-weight: 700; color: #39b9ad; letter-spacing: 2px;
+    }
+    .timer-box { display: flex; justify-content: center; align-items: center; margin-bottom: 28px; margin-top: 12px;}
+    .timer-unit {
+      background: #39b9ad; color: #fff; border-radius: 7px; padding: 12px 24px 7px 24px; margin: 0 9px;
+      font-size: 2.3rem; font-weight: 600; letter-spacing: 1px; box-shadow: 0 3px 18px rgba(57,185,173,0.12);
+      display: flex; flex-direction: column; align-items: center; min-width: 90px;
+    }
+    .timer-label { margin-top: 4px; font-size: 1.1rem; font-weight: 500; color: #e5fff5; letter-spacing: 1.2px; }
+    /* Echarts地图容器 */
+    #china-map { width: 99%; max-width: 820px; height: 520px; margin: 0 auto; background: #fff; border-radius: 20px; box-shadow: 0 4px 30px rgba(57,185,173,0.08); border: 2px solid #eafaf6; }
+    .resource-map-box { display: flex; justify-content: center; align-items: center; margin-top: 20px;}
+    @media (max-width: 900px) {
+      .resource-title { font-size: 1.5rem; }
+      .timer-unit { font-size: 1.2rem; min-width: 55px; padding: 7px 9px 5px 9px;}
+      #china-map { width: 99vw; height: 390px;}
+    }
+  </style>
+</head>
+<body>
+  <!-- ===== Header/Navbar ===== -->
+  <header class="navbar">
+    <div class="navbar-inner">
+      <div class="navbar-left">
+        <img src="/assets/img/logo.png" alt="Hospital Logo" class="logo-img">
+        <img src="/assets/img/logo2.png" alt="Partner Logo" class="logo-img">
+      </div>
+      <nav class="navbar-links" id="navbarLinks">
+        <a href="/">Home</a>
+        <a href="/resource/" class="active">Resource</a>
+        <a href="/data-summary/">Data Summary</a>
+        <a href="/funding/">Funding</a>
+        <a href="http://www.zjuchsep.com/absed/">Diagnostic Tool</a>
+      </nav>
+      <!-- 汉堡按钮 -->
+      <div class="navbar-burger" id="navbarBurger">
+        <span></span><span></span><span></span>
+      </div>
+      <!-- 遮罩 -->
+      <div class="navbar-mask" id="navbarMask"></div>
+    </div>
+  </header>
 
+  <div class="main-content">
+    <div class="resource-title">Resource</div>
+    <!-- 数据库存在时间计时器 -->
+    <div class="timer-box" id="db-timer">
+      <div class="timer-unit"><span id="days">-</span><div class="timer-label">Days</div></div>
+      <div class="timer-unit"><span id="hours">-</span><div class="timer-label">Hours</div></div>
+      <div class="timer-unit"><span id="minutes">-</span><div class="timer-label">Minutes</div></div>
+      <div class="timer-unit"><span id="seconds">-</span><div class="timer-label">Seconds</div></div>
+    </div>
+    <!-- 交互式中国地图 -->
+    <div class="resource-map-box">
+      <div id="china-map"></div>
+    </div>
+    <div style="margin-top:32px;text-align:center;color:#aaa;">
+      <span style="font-size:1.06rem;">
+        <i class="ri-map-pin-2-fill" style="color:#39b9ad;margin-right:6px"></i>
+        数据来源：中国各省市（浙江省已高亮）<br>
+        Data source: Provinces in China (Zhejiang highlighted)
+      </span>
+    </div>
+  </div>
+
+  <!-- 计时器JS -->
+  <script>
+    // 数据库起始日期
+    const dbStartDate = new Date("2025-05-01T00:00:00");
+    function updateTimer() {
+      const now = new Date();
+      let diff = Math.floor((now - dbStartDate) / 1000);
+      const days = Math.floor(diff / (3600*24));
+      diff = diff % (3600*24);
+      const hours = Math.floor(diff / 3600);
+      diff = diff % 3600;
+      const minutes = Math.floor(diff / 60);
+      const seconds = diff % 60;
+      document.getElementById("days").textContent = days;
+      document.getElementById("hours").textContent = String(hours).padStart(2,"0");
+      document.getElementById("minutes").textContent = String(minutes).padStart(2,"0");
+      document.getElementById("seconds").textContent = String(seconds).padStart(2,"0");
+    }
+    setInterval(updateTimer, 1000);
+    updateTimer();
+  </script>
+  <script>
+    // Echarts中国地图
+    var chartDom = document.getElementById('china-map');
+    var myChart = echarts.init(chartDom);
+
+    var mapData = [
+      {name: '浙江', value: 100},
+      {name: '北京', value: 1}, {name: '天津', value: 1}, {name: '上海', value: 1},
+      {name: '重庆', value: 1}, {name: '河北', value: 1}, {name: '河南', value: 1},
+      {name: '云南', value: 1}, {name: '辽宁', value: 1}, {name: '黑龙江', value: 1},
+      {name: '湖南', value: 1}, {name: '安徽', value: 1}, {name: '山东', value: 1},
+      {name: '新疆', value: 1}, {name: '江苏', value: 1}, {name: '广西', value: 1},
+      {name: '江西', value: 1}, {name: '甘肃', value: 1}, {name: '山西', value: 1},
+      {name: '内蒙古', value: 1}, {name: '陕西', value: 1}, {name: '吉林', value: 1},
+      {name: '福建', value: 1}, {name: '贵州', value: 1}, {name: '广东', value: 1},
+      {name: '青海', value: 1}, {name: '西藏', value: 1}, {name: '四川', value: 1},
+      {name: '宁夏', value: 1}, {name: '海南', value: 1}, {name: '台湾', value: 1},
+      {name: '香港', value: 1}, {name: '澳门', value: 1}
+    ];
+
+    var option = {
+      tooltip: {
+        trigger: 'item',
+        formatter: function(params){
+          return params.name + (params.value ? ': ' + params.value : '');
+        }
+      },
+      visualMap: {
+        min: 0,
+        max: 100,
+        left: 16,
+        bottom: 28,
+        show: false,
+        inRange: {
+          color: ['#eafaf6', '#39b9ad']
+        }
+      },
+      series: [{
+        name: '数据来源',
+        type: 'map',
+        map: 'china',
+        roam: false,
+        emphasis: {
+          label: { show: true, color:'#39b9ad', fontWeight: 'bold' },
+          itemStyle: { areaColor: '#ff8763', borderColor:'#f00', borderWidth:1.5 }
+        },
+        label: {
+          show: false,
+          color: '#888',
+          fontSize: 12
+        },
+        itemStyle: {
+          borderColor: '#fff',
+          borderWidth: 1,
+          areaColor: '#eafaf6'
+        },
+        data: mapData
+      }]
+    };
+
+    myChart.setOption(option);
+
+    setTimeout(function(){
+      myChart.dispatchAction({
+        type: 'highlight',
+        seriesIndex: 0,
+        name: '浙江'
+      });
+    }, 600);
+
+    window.addEventListener('resize', function(){
+      myChart.resize();
+    });
+  </script>
+  <!-- 汉堡菜单JS 只需和主页一样即可，如已引入可省略 -->
+  <script>
+    // 响应式汉堡菜单JS（可与主页公用JS一致）
+    const navbarBurger = document.getElementById("navbarBurger");
+    const navbarLinks = document.getElementById("navbarLinks");
+    const navbarMask = document.getElementById("navbarMask");
+    navbarBurger.onclick = function() {
+      navbarLinks.classList.toggle("show");
+      navbarMask.classList.toggle("show");
+    }
+    navbarMask.onclick = function() {
+      navbarLinks.classList.remove("show");
+      navbarMask.classList.remove("show");
+    }
+    window.addEventListener("resize", () => {
+      if(window.innerWidth > 900){
+        navbarLinks.classList.remove("show");
+        navbarMask.classList.remove("show");
+      }
+    });
+  </script>
+</body>
+</html>
