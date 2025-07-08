@@ -128,8 +128,9 @@
       var option = {
         tooltip: {
           trigger: 'item',
+          // 只显示省份名
           formatter: function(params){
-            return params.name + (params.value ? ': ' + params.value : '');
+            return params.name;
           }
         },
         visualMap: {
