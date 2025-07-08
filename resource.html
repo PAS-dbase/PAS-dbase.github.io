@@ -36,6 +36,28 @@
 </head>
 <body>
   <!-- 头部导航栏（略，直接复用主站header即可） -->
+  <!-- ===== Header/Navbar ===== -->
+  <header class="navbar">
+    <div class="navbar-inner">
+      <div class="navbar-left">
+        <img src="./assets/img/logo.png" alt="Hospital Logo" class="logo-img">
+        <img src="./assets/img/logo2.png" alt="Partner Logo" class="logo-img">
+      </div>
+      <nav class="navbar-links" id="navbarLinks">
+        <a href="/" class="active">Home</a>
+        <a href="resource.html">Resource</a>
+        <a href="data-summary.html">Data Summary</a>
+        <a href="funding.html">Funding</a>
+        <a href="http://www.zjuchsep.com/absed/">Diagnostic Tool</a>
+      </nav>
+      <!-- 汉堡按钮 -->
+      <div class="navbar-burger" id="navbarBurger">
+        <span></span><span></span><span></span>
+      </div>
+      <!-- 遮罩 -->
+      <div class="navbar-mask" id="navbarMask"></div>
+    </div>
+  </header>
 
   <div class="main-content">
     <div class="resource-title">Resource</div>
@@ -62,7 +84,7 @@
   <!-- 计时器JS -->
   <script>
     // 数据库起始日期
-    const dbStartDate = new Date("2023-01-01T00:00:00");
+    const dbStartDate = new Date("2025-05-01T00:00:00");
     function updateTimer() {
       const now = new Date();
       let diff = Math.floor((now - dbStartDate) / 1000);
