@@ -1,0 +1,129 @@
+:root {
+  --main-color: #39b9ad;
+  --accent-color: #ff8763;
+  --bg-gradient: linear-gradient(120deg, #e6fffb 0%, #fff7f4 100%);
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
+  background: #fafdff;
+  color: #266f6c;
+}
+
+/* --- Header --- */
+/* 最外层100%宽度，背景全屏，内容最大定宽并水平居中 */
+.navbar {
+  width: 100%;
+  background: #fff;
+  box-shadow: 0 2px 14px rgba(57,185,173,0.09);
+  position: sticky;
+  top: 0;
+  z-index: 99;
+}
+
+/* 居中且最大宽度一致（和主内容区max-width一致） */
+.navbar-inner {
+  max-width: 1200px;    /* 主内容宽度可自定义 */
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;   /* 两端对齐 */
+  padding: 0 32px;
+  height: 70px;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+/* 左侧logo组 */
+.navbar-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* logo图片样式 */
+.logo-img {
+  height: 38px;
+  width: 38px;
+  border-radius: 50%;
+  background: #fff;
+  object-fit: contain;
+}
+
+/* 菜单栏始终右侧 */
+.navbar-links {
+  display: flex;
+  gap: 32px;
+  min-width: 0;
+  flex-shrink: 1;
+  align-items: center;
+}
+
+.navbar-links a {
+  text-decoration: none;
+  color: #266f6c;
+  font-size: 1.08rem;
+  font-weight: 500;
+  padding: 6px 15px;
+  border-radius: 7px;
+  transition: background .2s, color .2s;
+  white-space: nowrap;
+}
+
+.navbar-links a:hover, .navbar-links .active {
+  background: #39b9ad;
+  color: #fff;
+}
+
+/* 汉堡菜单小屏显示 */
+.navbar-burger {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  margin-left: 16px;
+  z-index: 1002;
+}
+.navbar-burger span {
+  width: 28px;
+  height: 4px;
+  background: #39b9ad;
+  margin: 4px 0;
+  border-radius: 3px;
+  display: block;
+  transition: 0.2s;
+}
+.navbar-mask {
+  display: none;
+}
+
+/* 移动端适配：小于900px折叠菜单，只logo显示左侧 */
+@media (max-width: 900px) {
+  .navbar-inner { padding: 0 8px; }
+  .navbar-links {
+    position: fixed;
+    flex-direction: column;
+    gap: 12px;
+    top: 0;
+    right: -220px;  /* 默认隐藏 */
+    width: 180px;
+    height: 100vh;
+    background: #fff;
+    box-shadow: -2px 0 12px rgba(57,185,173,0.08);
+    align-items: flex-start;
+    padding: 76px 18px 22px 18px;
+    transition: right 0.23s;
+    z-index: 1003;
+  }
+  .navbar-links.show { right: 0; }
+  .navbar-burger { display: flex;}
+  .navbar-mask { display: none;}
+  .navbar-mask.show { display: block; position: fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(80,80,80,0.15); z-index: 1001;}
+}
+
+/* 防止溢出出现横向滚动条！ */
+body, html {
+  width: 100%;
+  overflow-x: hidden !important;
+  box-sizing: border-box;
+}
