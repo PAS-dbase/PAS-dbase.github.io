@@ -105,7 +105,7 @@
   </script>
   <script>
     // Echarts中国地图
-    fetch('https://geo.datav.aliyun.com/areas/bound/geojson?code=100000_full')
+    fetch('https://gitee.com/echarts-maps/china-geojson/raw/master/china.json')
       .then(res => res.json())
       .then(function (chinaJson) {
         echarts.registerMap('china', chinaJson);
