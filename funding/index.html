@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <title>Funding | PAS database</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="/assets/img/logo.png" type="image/png">
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css">
+  <style>
+    .funding-content {
+      max-width: 900px;
+      margin: 60px auto 70px auto;
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 4px 24px rgba(57,185,173,0.08);
+      padding: 48px 32px 44px 32px;
+      color: #266f6c;
+    }
+    .funding-title {
+      text-align: center;
+      font-size: 2.3rem;
+      font-weight: 700;
+      color: #39b9ad;
+      margin-bottom: 32px;
+      letter-spacing: 2px;
+    }
+    .funding-section {
+      margin-bottom: 40px;
+    }
+    .funding-section-title {
+      font-size: 1.32rem;
+      color: #ff8763;
+      font-weight: 700;
+      margin-bottom: 16px;
+      letter-spacing: 1px;
+    }
+    .funder-list, .partner-list {
+      padding-left: 1.1em;
+      line-height: 1.85;
+    }
+    .funder-list li, .partner-list li {
+      font-size: 1.1rem;
+      margin-bottom: 3px;
+    }
+    @media (max-width: 700px) {
+      .funding-content { padding: 24px 4vw 30px 4vw; }
+      .funding-title { font-size: 1.5rem; }
+      .funding-section-title { font-size: 1.1rem; }
+      .funder-list li, .partner-list li { font-size: 1rem; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header/Navbar（完全一致，可根据你实际header结构调整） -->
+  <header class="navbar">
+    <div class="navbar-inner">
+      <div class="navbar-left">
+        <img src="/assets/img/logo.png" alt="Hospital Logo" class="logo-img">
+        <img src="/assets/img/logo2.png" alt="Partner Logo" class="logo-img">
+      </div>
+      <nav class="navbar-links" id="navbarLinks">
+        <a href="/">Home</a>
+        <a href="/resource/">Resource</a>
+        <a href="/summary/">Data Summary</a>
+        <a href="/funding/" class="active">Funding</a>
+        <a href="http://www.zjuchsep.com/absed/">Diagnostic Tool</a>
+      </nav>
+      <div class="navbar-burger" id="navbarBurger">
+        <span></span><span></span><span></span>
+      </div>
+      <div class="navbar-mask" id="navbarMask"></div>
+    </div>
+  </header>
+
+  <main class="funding-content">
+    <div class="funding-title">Funders and Partners</div>
+
+    <section class="funding-section">
+      <div class="funding-section-title">基金 | Funding</div>
+      <ul class="funder-list">
+        <li>感谢来自高志刚院长浙江省尖兵、领雁项目 (No. 2023C03029) 的资助 </li>
+        <li>Thanks the Key R&D Program of Zhejiang Province (No. 2023C03029) from Zhigang Gao</li>
+      </ul>
+    </section>
+
+    <section class="funding-section">
+      <div class="funding-section-title">Partners</div>
+      <ul class="partner-list">
+        <li>承办单位：浙江大学医学院附属儿童医院 | The Children's Hospital, Zhejiang University School of Medicine</li>
+        <li>合作单位：义乌妇幼保健院 | YiWu Maternity and Children Hospital</li>
+        <li>合作单位：绍兴妇幼保健院 | Shaoxing Maternity and Children Hospital</li>
+        <li>合作单位：金华妇幼保健院 | Jinhua Maternal and Child Health Care Hospital</li>
+        <li>合作单位：诸暨妇幼保健院 | Zhuji Maternity and Children Hospital</li>
+        <li>合作单位：温岭妇幼保健院 | Wenling Maternity and Children Hospital</li>
+        <li>合作单位：衢州妇幼保健院 | Quzhou Maternal and Child Health Care Hospital</li>
+      </ul>
+    </section>
+
+    <section>
+      <div style="color:#888;font-size:1.06rem;margin-top:30px;text-align:center;">
+        The PAS database acknowledges all funding agencies and collaborators who made this project possible.
+      </div>
+    </section>
+  </main>
+
+  <!-- 响应式汉堡菜单JS（和主页一致） -->
+  <script>
+    const navbarBurger = document.getElementById("navbarBurger");
+    const navbarLinks = document.getElementById("navbarLinks");
+    const navbarMask = document.getElementById("navbarMask");
+    navbarBurger.onclick = function() {
+      navbarLinks.classList.toggle("show");
+      navbarMask.classList.toggle("show");
+    }
+    navbarMask.onclick = function() {
+      navbarLinks.classList.remove("show");
+      navbarMask.classList.remove("show");
+    }
+    window.addEventListener("resize", () => {
+      if(window.innerWidth > 900){
+        navbarLinks.classList.remove("show");
+        navbarMask.classList.remove("show");
+      }
+    });
+  </script>
+</body>
+</html>
