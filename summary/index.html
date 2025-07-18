@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <title>Data Summary | PAS database</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="/assets/img/logo.png" type="image/png">
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css">
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+  <style>
+    .summary-content {
+      max-width: 1160px;
+      margin: 60px auto 80px auto;
+      padding: 44px 20px 48px 20px;
+      background: #fff;
+      border-radius: 20px;
+      box-shadow: 0 4px 30px rgba(57,185,173,0.08);
+    }
+    .summary-title {
+      text-align: center;
+      font-size: 2.3rem;
+      font-weight: 700;
+      color: #39b9ad;
+      margin-bottom: 36px;
+      letter-spacing: 2px;
+    }
+    .summary-section-title {
+      font-size: 1.22rem;
+      color: #ff8763;
+      font-weight: 700;
+      margin: 34px 0 14px 0;
+      letter-spacing: 1px;
+    }
+    .summary-text {
+      font-size: 1.13rem;
+      color: #266f6c;
+      margin-bottom: 24px;
+      line-height: 1.75;
+      text-align: left;
+    }
+    .summary-charts-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 36px;
+      justify-content: center;
+      margin-bottom: 36px;
+    }
+    .summary-chart-box {
+      width: 340px;
+      min-width: 240px;
+      height: 320px;
+      background: #fafdff;
+      border-radius: 15px;
+      box-shadow: 0 2px 10px rgba(57,185,173,0.06);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px 0 0 0;
+    }
+    .chart-title {
+      font-size: 1rem;
+      color: #39b9ad;
+      margin-bottom: 8px;
+      text-align: center;
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+    #pas-bar {
+      width: 340px; height: 270px; margin: 0 auto;
+    }
+    @media (max-width: 900px) {
+      .summary-content { padding: 10px 3vw 10vw 3vw;}
+      .summary-charts-row { flex-direction: column; gap: 18px;}
+      .summary-chart-box { width: 98vw; min-width: 0; height: 260px;}
+      #pas-bar { width: 98vw; height: 210px;}
+    }
+  </style>
+</head>
+<body>
+  <!-- Header/Navbar -->
+  <header class="navbar">
+    <div class="navbar-inner">
+      <div class="navbar-left">
+        <img src="/assets/img/logo.png" alt="Hospital Logo" class="logo-img">
+        <img src="/assets/img/logo2.png" alt="Partner Logo" class="logo-img">
+      </div>
+      <nav class="navbar-links" id="navbarLinks">
+        <a href="/">Home</a>
+        <a href="/resource/">Resource</a>
+        <a href="/data-summary/" class="active">Data Summary</a>
+        <a href="/funding/">Funding</a>
+        <a href="http://www.zjuchsep.com/absed/">Diagnostic Tool</a>
+      </nav>
+      <div class="navbar-burger" id="navbarBurger">
+        <span></span><span></span><span></span>
+      </div>
+      <div class="navbar-mask" id="navbarMask"></div>
+    </div>
+  </header>
+
+  <main class="summary-content">
+    <div class="summary-title">Data Summary</div>
+    <!-- 第一部分：病例队列 -->
+    <div class="summary-section-title">Cohort Statistics</div>
+    <div class="summary-text">
+      本数据库共包含 <b>2536</b> 例腹源性疾病患儿，其中腹源性脓毒症 <b>389</b> 例。数据包括多中心患者的详细人口学信息、诊断、治疗及结局资料。
+    </div>
+    <div class="summary-charts-row">
+      <div class="summary-chart-box">
+        <div class="chart-title">Gender Distribution</div>
+        <div id="gender-pie" style="width:100%;height:250px;"></div>
+      </div>
+      <div class="summary-chart-box">
+        <div class="chart-title">PAS vs. Control</div>
+        <div id="group-pie" style="width:100%;height:250px;"></div>
+      </div>
+      <div class="summary-chart-box" style="width:100%;">
+        <div class="chart-title">PAS Age & Gender Distribution</div>
+        <div id="pas-bar"></div>
+      </div>
+    </div>
+
+    <!-- 第二部分：腹腔镜影像资料 -->
+    <div class="summary-section-title">Laparoscopic Imaging Cohort</div>
+    <div class="summary-text">
+      数据库包含 <b>654</b> 例腹腔镜手术患儿的医学影像资料，涵盖主要腹源性疾病。所有影像数据均经严格质控和脱敏处理，可用于多种人工智能影像分析任务。
+    </div>
+    <div class="summary-charts-row">
+      <div class="summary-chart-box">
+        <div class="chart-title">Imaging Gender Distribution</div>
+        <div id="img-gender-pie" style="width:100%;height:210px;"></div>
+      </div>
+      <div class="summary-chart-box">
+        <div class="chart-title">Imaging Disease Spectrum</div>
+        <div id="img-disease-pie" style="width:100%;height:210px;"></div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ECharts 图表数据&脚本 -->
+  <script>
+    // 1. 病例性别分布饼图
+    var genderPie = echarts.init(document.getElementById('gender-pie'));
+    genderPie.setOption({
+      tooltip: { trigger: 'item' },
+      series: [{
+        name: 'Gender',
+        type: 'pie',
+        radius: ['45%', '75%'],
+        center: ['50%', '50%'],
+        data: [
+          {value: 1423, name: 'Male'},
+          {value: 1113, name: 'Female'}
+        ],
+        itemStyle: { borderRadius: 8 },
+        label: { fontSize: 15, color:'#266f6c'}
+      }]
+    });
+
+    // 2. PAS与对照组分布
+    var groupPie = echarts.init(document.getElementById('group-pie'));
+    groupPie.setOption({
+      tooltip: { trigger: 'item' },
+      series: [{
+        name: 'Group',
+        type: 'pie',
+        radius: ['45%', '75%'],
+        center: ['50%', '50%'],
+        data: [
+          {value: 389, name: 'PAS'},
+          {value: 2147, name: 'Control'}
+        ],
+        itemStyle: { borderRadius: 8 },
+        label: { fontSize: 15, color:'#266f6c'}
+      }]
+    });
+
+    // 3. PAS性别年龄分布堆积柱状图
+    var pasBar = echarts.init(document.getElementById('pas-bar'));
+    pasBar.setOption({
+      tooltip: { trigger: 'axis' },
+      legend: { top: 2, right: 20, data:['Male','Female'], textStyle:{color:'#39b9ad'} },
+      grid: { left: '4%', right: '3%', bottom: '6%', containLabel: true },
+      xAxis: { type: 'category', data: ['<1y','1-3y','4-6y','7-10y','>10y'], axisLine:{lineStyle:{color:'#39b9ad'}} },
+      yAxis: { type: 'value', axisLine:{lineStyle:{color:'#39b9ad'}}, splitLine:{show:true,lineStyle:{color:'#eafaf6'}} },
+      series: [
+        { name: 'Male', type: 'bar', stack: 'Total', emphasis: {focus: 'series'}, data: [31, 68, 90, 100, 65], barWidth:32, itemStyle:{color:'#39b9ad'} },
+        { name: 'Female', type: 'bar', stack: 'Total', emphasis: {focus: 'series'}, data: [23, 52, 74, 62, 44], barWidth:32, itemStyle:{color:'#ff8763'} }
+      ]
+    });
+
+    // 4. 影像性别分布
+    var imgGenderPie = echarts.init(document.getElementById('img-gender-pie'));
+    imgGenderPie.setOption({
+      tooltip: { trigger: 'item' },
+      series: [{
+        name: 'Imaging Gender',
+        type: 'pie',
+        radius: ['38%', '72%'],
+        center: ['52%', '54%'],
+        data: [
+          {value: 376, name: 'Male'},
+          {value: 278, name: 'Female'}
+        ],
+        itemStyle: { borderRadius: 8 },
+        label: { fontSize: 14, color:'#266f6c'}
+      }]
+    });
+
+    // 5. 影像疾病分布
+    var imgDiseasePie = echarts.init(document.getElementById('img-disease-pie'));
+    imgDiseasePie.setOption({
+      tooltip: { trigger: 'item' },
+      series: [{
+        name: 'Imaging Disease',
+        type: 'pie',
+        radius: ['38%', '72%'],
+        center: ['50%', '52%'],
+        data: [
+          {value: 210, name: 'Appendicitis'},
+          {value: 173, name: 'Intestinal Obstruction'},
+          {value: 98, name: 'Peritonitis'},
+          {value: 81, name: 'Abdominal Trauma'},
+          {value: 92, name: 'Other'}
+        ],
+        itemStyle: { borderRadius: 8 },
+        label: { fontSize: 14, color:'#266f6c'}
+      }]
+    });
+
+    // 响应式自适应
+    window.addEventListener('resize', function(){
+      genderPie.resize();
+      groupPie.resize();
+      pasBar.resize();
+      imgGenderPie.resize();
+      imgDiseasePie.resize();
+    });
+  </script>
+
+  <!-- 响应式汉堡菜单JS，与主站一致 -->
+  <script>
+    const navbarBurger = document.getElementById("navbarBurger");
+    const navbarLinks = document.getElementById("navbarLinks");
+    const navbarMask = document.getElementById("navbarMask");
+    navbarBurger.onclick = function() {
+      navbarLinks.classList.toggle("show");
+      navbarMask.classList.toggle("show");
+    }
+    navbarMask.onclick = function() {
+      navbarLinks.classList.remove("show");
+      navbarMask.classList.remove("show");
+    }
+    window.addEventListener("resize", () => {
+      if(window.innerWidth > 900){
+        navbarLinks.classList.remove("show");
+        navbarMask.classList.remove("show");
+      }
+    });
+  </script>
+</body>
+</html>
