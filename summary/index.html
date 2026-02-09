@@ -104,7 +104,7 @@
     <!-- 第一部分：病例队列 -->
     <div class="summary-section-title">Cohort Statistics</div>
     <div class="summary-text">
-      本数据库共包含 <b>2536</b> 例腹源性疾病患儿，其中腹源性脓毒症 <b>389</b> 例。数据包括多中心患者的详细人口学信息、诊断、治疗及结局资料。
+      本数据库共包含 <b>1251</b> 例经医生标注的腹源性疾病患儿，其中腹源性脓毒症 <b>459</b> 例。数据包括多中心患者的详细人口学信息、诊断、治疗及结局资料。
     </div>
     <div class="summary-charts-row">
       <div class="summary-chart-box">
@@ -150,8 +150,8 @@
         radius: ['45%', '75%'],
         center: ['50%', '50%'],
         data: [
-          {value: 1423, name: 'Male'},
-          {value: 1113, name: 'Female'}
+          {value: 788, name: 'Male'},
+          {value: 463, name: 'Female'}
         ],
         itemStyle: { borderRadius: 8 },
         label: { fontSize: 15, color:'#266f6c'}
@@ -168,8 +168,8 @@
         radius: ['45%', '75%'],
         center: ['50%', '50%'],
         data: [
-          {value: 389, name: 'PAS'},
-          {value: 2147, name: 'Control'}
+          {value: 459, name: 'PAS'},
+          {value: 792, name: 'Control'}
         ],
         itemStyle: { borderRadius: 8 },
         label: { fontSize: 15, color:'#266f6c'}
@@ -185,8 +185,8 @@
       xAxis: { type: 'category', data: ['<1y','1-3y','4-6y','7-10y','>10y'], axisLine:{lineStyle:{color:'#39b9ad'}} },
       yAxis: { type: 'value', axisLine:{lineStyle:{color:'#39b9ad'}}, splitLine:{show:true,lineStyle:{color:'#eafaf6'}} },
       series: [
-        { name: 'Male', type: 'bar', stack: 'Total', emphasis: {focus: 'series'}, data: [31, 68, 90, 100, 65], barWidth:32, itemStyle:{color:'#39b9ad'} },
-        { name: 'Female', type: 'bar', stack: 'Total', emphasis: {focus: 'series'}, data: [23, 52, 74, 62, 44], barWidth:32, itemStyle:{color:'#ff8763'} }
+        { name: 'Male', type: 'bar', stack: 'Total', emphasis: {focus: 'series'}, data: [31, 58, 68, 50, 55], barWidth:32, itemStyle:{color:'#39b9ad'} },
+        { name: 'Female', type: 'bar', stack: 'Total', emphasis: {focus: 'series'}, data: [23, 52, 46, 42, 44], barWidth:32, itemStyle:{color:'#ff8763'} }
       ]
     });
 
